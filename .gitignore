@@ -1,0 +1,7 @@
+# ignore directory
+/extra
+/genSpam
+/node_modules
+/spamFolder
+/tutorial
+/logger
