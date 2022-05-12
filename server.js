@@ -50,12 +50,13 @@ const server = http.createServer((req, res) => {
   //Build dynamic file path.
   let filePath = path.join(
     __dirname,
-    path.extname(req.url) === '.css' ? '' : 'public',
+    // path.extname(req.url) === '.css' ? '' :
+    'public',
     req.url === '/' ? 'index.html' : req.url
   );
 
   // Checking what filePath is.
-  // console.log(filePath, ' ', req.url);
+  console.log(filePath, ' ', req.url);
 
   // More common content-type is text/html
   let contentType = 'text/html';
@@ -68,8 +69,8 @@ const server = http.createServer((req, res) => {
       contentType = 'text/javascript';
       break;
     case '.css':
-      contentType = 'type/css';
-      // console.log('Extension name is css!');
+      contentType = 'text/css';
+      console.log('Extension name is css! for', filePath);
       break;
     case '.json':
       contentType = 'application/json';
@@ -90,7 +91,7 @@ const server = http.createServer((req, res) => {
         fs.readFile(
           path.join(__dirname, 'public', '404error.html'),
           (err, content) => {
-            res.writeHead(200, { 'Content-Type': contentType });
+            res.writeHead(200, { 'Content-Type': 'text/html' });
             res.end(content, 'utf8');
           }
         );
@@ -103,7 +104,7 @@ const server = http.createServer((req, res) => {
       // Success. Found html file.
       // console.log('Success: ', contentType);
       res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf8');
+      res.end(content);
     }
   });
 });
